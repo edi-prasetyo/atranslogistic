@@ -68,8 +68,8 @@ class OrderController extends Controller
         $order->receipt_number = $receipt_number;
 
         $path = 'uploads/qrcode/';
-        $file = $path . $order->receipt_number . '.svg';
-        $qr = QrCode::format('svg')->generate($order->receipt_number, $file);
+        $file = $path . $order->uuid . '.svg';
+        $qr = QrCode::format('svg')->generate($order->uuid, $file);
 
         $order->qrcode = $file;
         $order->save();
