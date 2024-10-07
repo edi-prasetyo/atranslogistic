@@ -46,7 +46,6 @@ class BannerController extends Controller
 
         if ($request->hasFile('image')) {
 
-
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
