@@ -18,7 +18,6 @@ Route::get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum']], function () {
 
     Route::post('/login', [AuthController::class, 'login']);
-
     Route::controller(AuthController::class)->group(function () {
         Route::post('/logout', 'logout');
         Route::get('/profile', 'profile');
