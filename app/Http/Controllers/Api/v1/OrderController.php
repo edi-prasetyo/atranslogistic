@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -33,6 +34,19 @@ class OrderController extends Controller
                 'status' => 'Success',
                 'message' => '',
                 'data' => $order
+            ]);
+        }
+    }
+
+    public function kurir()
+    {
+        $courier_id = Auth::user()->id;
+        $order_kurir = Order::where('courier_id', $courier_id)->where('status', 1)->get();
+        if ($order_kurir) {
+            return response()->json([
+                'status' => 'Success',
+                'message' => '',
+                'data' => $order_kurir
             ]);
         }
     }
