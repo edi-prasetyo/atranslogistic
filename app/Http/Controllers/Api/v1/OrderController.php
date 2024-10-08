@@ -35,14 +35,12 @@ class OrderController extends Controller
         // $courier_id = $order->courier_id;
         $courier_name = User::where('id', $order->courier_id)->first();
 
-        if ($order->courier_id == null) {
-            $tracking = new Tracking();
-            $tracking->order_id = $order->id;
-            $tracking->courier_id = $order->courier_id;
-            $tracking->stage = "Order telah di Antar oleh " . $courier_name->name;
-            $tracking->save();
-        } else {
-        }
+        $tracking = new Tracking();
+        $tracking->order_id = $order->id;
+        $tracking->courier_id = $order->courier_id;
+        $tracking->stage = "Order telah di Antar oleh " . $courier_name->name;
+        $tracking->save();
+
 
         if ($order) {
             return response()->json([
