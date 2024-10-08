@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Tracking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +30,18 @@ class OrderController extends Controller
         $order->courier_id = $request['courier_id'];
         $order->status = $request['status'];
         $order->update();
+
+        $courier_id = $order->courier_id;
+        $courier_detail = Order::where('courier_id', $courier_id)
+            ->join('users', 'users.id', '=', 'orders.courier_id')
+            ->select('orders.*', 'users.name as courier_name')
+            ->first();
+
+
+        $tracking = new Tracking();
+        $tracking->order_id = $order->id;
+        $tracking->stage = "Order telah di Antar oleh " . $courier_detail->courier_names;
+        $tracking->save();
 
         if ($order) {
             return response()->json([
