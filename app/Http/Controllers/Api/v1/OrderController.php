@@ -26,7 +26,7 @@ class OrderController extends Controller
     public function update(Request $request, String $uuid)
     {
         $order = Order::where('uuid', $uuid)->first();
-        $order->user_id = $request['user_id'];
+        $order->courier_id = $request['courier_id'];
         $order->update();
 
         if ($order) {
