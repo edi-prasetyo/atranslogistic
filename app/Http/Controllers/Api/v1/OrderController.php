@@ -35,7 +35,7 @@ class OrderController extends Controller
         // $courier_id = $order->courier_id;
         $courier_name = User::where('id', $order->courier_id)->first();
 
-        if ($order->status == 0) {
+        if ($order->courier_id == null) {
             $tracking = new Tracking();
             $tracking->order_id = $order->id;
             $tracking->courier_id = $order->courier_id;
