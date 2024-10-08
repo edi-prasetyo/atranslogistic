@@ -40,6 +40,7 @@ class OrderController extends Controller
 
         $tracking = new Tracking();
         $tracking->order_id = $order->id;
+        $tracking->courier_id = $order->courier_id;
         $tracking->stage = "Order telah di Antar oleh " . $courier_detail->courier_name;
         $tracking->save();
 
