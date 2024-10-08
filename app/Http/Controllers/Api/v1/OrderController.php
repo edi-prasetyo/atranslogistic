@@ -27,6 +27,7 @@ class OrderController extends Controller
     {
         $order = Order::where('uuid', $uuid)->first();
         $order->courier_id = $request['courier_id'];
+        $order->status = $request['status'];
         $order->update();
 
         if ($order) {
