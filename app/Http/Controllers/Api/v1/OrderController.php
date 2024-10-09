@@ -51,6 +51,18 @@ class OrderController extends Controller
         }
     }
 
+    public function detail($uuid)
+    {
+        $order = Order::where('uuid', $uuid)->first();
+        if ($order) {
+            return response()->json([
+                'status' => 'Success',
+                'message' => '',
+                'data' => $order
+            ]);
+        }
+    }
+
     public function kurir()
     {
         $courier_id = Auth::user()->id;

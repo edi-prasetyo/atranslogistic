@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Orders
     Route::controller(OrderController::class)->group(function () {
         Route::get('/orders', 'index');
+        Route::get('/orders/detail/{uuid}', 'detail');
         Route::put('/orders/update/{uuid}', 'update');
         Route::get('/orders/kurir/', 'kurir');
     });
