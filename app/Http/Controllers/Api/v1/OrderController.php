@@ -55,11 +55,9 @@ class OrderController extends Controller
     {
         $order = Order::where('uuid', $uuid)->first();
         if ($order) {
-            return response()->json([
-                'status' => 'Success',
-                'message' => '',
-                'data' => $order
-            ]);
+            return response()->json(
+                $order
+            );
         }
     }
 
