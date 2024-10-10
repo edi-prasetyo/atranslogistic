@@ -56,7 +56,7 @@ class OrderController extends Controller
         $order = Order::where('uuid', $uuid)->first();
         if ($order) {
             return response()->json(
-                $order
+                [$order]
             );
         }
     }
