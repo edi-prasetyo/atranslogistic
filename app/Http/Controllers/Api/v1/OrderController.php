@@ -55,19 +55,19 @@ class OrderController extends Controller
     {
         $order = Order::where('uuid', $uuid)->first();
 
-        // if ($order) {
-        //     return response()->json([
-        //         'status' => 'Success',
-        //         'message' => '',
-        //         'data' => $order
-        //     ]);
-        // }
-
         if ($order) {
-            return response()->json(
-                [$order]
-            );
+            return response()->json([
+                'status' => 'Success',
+                'message' => '',
+                'data' => $order
+            ]);
         }
+
+        // if ($order) {
+        //     return response()->json(
+        //         [$order]
+        //     );
+        // }
     }
 
     public function kurir()
