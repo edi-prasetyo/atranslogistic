@@ -19,31 +19,43 @@ class AuthController extends Controller
     {
         $request->validated($request->all);
 
-        if (!Auth::attempt($request->only(['email', 'password']))) {
-            return $this->error('', 'Credential do not match', 401);
+        if (Auth::attempt($request->only(['email', 'password']))) {
+            if ($request->filled('fcm_token')) {
+
+                Auth::user()->update(['fcm_token' => $request->fcm_token]);
+            }
+            $token = Auth::user()->createToken('authToken')->plainTextToken;
+            $user = array_merge(Auth::user()->toArray());
+            return $this->success([
+                'user' => $user,
+                'token' => $token,
+                // 'fcm_token' => $user->fcm_token
+            ]);
+            // return $this->error('', 'Credential do not match', 401);
         }
 
         // $users = User::role('writer')->get(); 
-        $user = User::where('email', $request->email)->role('courier')->first();
-        if ($user) {
-            return $this->success([
-                'user' => $user,
-                'token' => $user->createToken('Api Token of' . $user->name)->plainTextToken
-            ]);
-        } else {
-            return response()->json([
-                'status' => 'Error',
-                'message' => 'Error',
-                'data' => [
-                    'user' => [
-                        'id' => '',
-                        'name' => '',
-                        'emai' => ''
-                    ],
-                    'token' => '',
-                ]
-            ]);
-        }
+        // $user = User::where('email', $request->email)->role('courier')->first();
+        // if ($user) {
+        //     return $this->success([
+        //         'user' => $user,
+        //         'token' => $user->createToken('Api Token of' . $user->name)->plainTextToken,
+        //         'fcm_token' => $user->fcm_token
+        //     ]);
+        // } else {
+        //     return response()->json([
+        //         'status' => 'Error',
+        //         'message' => 'Error',
+        //         'data' => [
+        //             'user' => [
+        //                 'id' => '',
+        //                 'name' => '',
+        //                 'emai' => ''
+        //             ],
+        //             'token' => '',
+        //         ]
+        //     ]);
+        // }
     }
     public function register(StoreUserRequest $request)
     {
