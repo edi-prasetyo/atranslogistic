@@ -17,7 +17,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-
+    Route::post('send-fcm-notification', [FcmController::class, 'sendFcmNotification']);
     Route::controller(AuthController::class)->group(function () {
         Route::post('/logout', 'logout');
         Route::get('/profile', 'profile');
@@ -31,6 +31,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 });
 
-Route::post('send-fcm-notification', [FcmController::class, 'sendFcmNotification']);
+
 // Route::get('/orders/show/{uuid}', [AdminOrderController::class, 'show']);
 // Route::post('/orders/update/{uuid}', [AdminOrderController::class, 'update']);
