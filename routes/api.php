@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\FcmController;
 use App\Http\Controllers\Api\v1\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +31,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 });
 
+Route::post('send-fcm-notification', [FcmController::class, 'sendFcmNotification']);
 // Route::get('/orders/show/{uuid}', [AdminOrderController::class, 'show']);
 // Route::post('/orders/update/{uuid}', [AdminOrderController::class, 'update']);
