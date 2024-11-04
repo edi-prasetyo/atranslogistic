@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FileTypeController;
+use App\Http\Controllers\FirebasePushController;
 use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,9 @@ Route::post('/update-profile', [HomeController::class, 'update_profile'])->name(
 Route::get('/delete-profile', [HomeController::class, 'delete_profile'])->name('delete-profile');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('send-notif', [FirebasePushController::class, 'send_notif']);
+    Route::post('send/notification', [FirebasePushController::class, 'notification'])->name('firebase.send');
 
     Route::get('options', [OptionController::class, 'index']);
     Route::post('options/update', [OptionController::class, 'update']);
