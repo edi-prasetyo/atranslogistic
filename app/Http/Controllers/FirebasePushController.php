@@ -18,6 +18,7 @@ class FirebasePushController extends Controller
 
     public function send_notif()
     {
+
         $users = User::all();
         return view('admin.notification.send', compact('users'));
     }
